@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Owner Analytics</title>
+  <title>JM20 Analytics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -163,6 +163,34 @@
       align-items: flex-end;
     }
 
+    .btn-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-clear {
+      background: var(--surface2);
+      color: var(--text-dim);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0 18px;
+      height: 36px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-clear:hover {
+      color: var(--red);
+      border-color: rgba(239,68,68,0.4);
+      background: rgba(239,68,68,0.06);
+    }
+
     textarea {
       flex: 1;
       background: var(--surface);
@@ -216,36 +244,140 @@
       cursor: not-allowed;
     }
 
-    /* ── EXAMPLES ───────────────────────────────────────── */
-    .examples {
+    /* ── QUERY TOOLS (history / favorites dropdowns) ────── */
+    .query-tools {
       margin-top: 12px;
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
-    .examples-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-family: var(--mono);
+    .dropdown {
+      position: relative;
     }
 
-    .chip {
-      font-size: 0.76rem;
+    .btn-dropdown {
+      font-size: 0.78rem;
       color: var(--text-dim);
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 4px 12px;
+      border-radius: var(--radius);
+      padding: 6px 14px;
       cursor: pointer;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
       font-family: var(--sans);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .chip:hover {
+    .btn-dropdown:hover {
       color: var(--accent);
       border-color: var(--accent-dim);
+      background: var(--accent-glow);
+    }
+
+    .btn-dropdown .arrow {
+      font-size: 0.65rem;
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-dropdown.open .arrow { transform: rotate(180deg); }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      min-width: 260px;
+      max-width: 360px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .dropdown-menu.open { display: block; }
+
+    .dropdown-menu-header {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 10px 14px 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .dropdown-item:last-child { border-bottom: none; }
+
+    .dropdown-item:hover {
+      background: var(--accent-glow);
+      color: var(--text);
+    }
+
+    .dropdown-item-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    .dropdown-item-del {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      padding: 2px 5px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .dropdown-item-del:hover { color: var(--red); background: rgba(239,68,68,0.1); }
+
+    .dropdown-empty {
+      padding: 14px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+    }
+
+    .btn-fav-save {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      font-family: var(--sans);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .btn-fav-save:hover {
+      color: var(--accent);
+      border-color: var(--accent-dim);
+      background: var(--accent-glow);
     }
 
     /* ── LOADER ─────────────────────────────────────────── */
@@ -518,7 +650,9 @@
     /* ── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 600px) {
       .query-wrap { flex-direction: column; align-items: stretch; }
-      .btn-run { height: 48px; justify-content: center; }
+      .btn-col { flex-direction: row; }
+      .btn-run { height: 48px; justify-content: center; flex: 1; }
+      .btn-clear { height: 48px; }
       header { flex-direction: column; align-items: flex-start; gap: 14px; }
     }
   </style>
@@ -534,7 +668,7 @@
           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
         </svg>
       </div>
-      <div class="logo-text">Owner <span>Analytics</span></div>
+      <div class="logo-text">JM20 <span>Analytics</span></div>
     </div>
     <div class="status-pill">
       <span class="status-dot"></span>
@@ -551,21 +685,46 @@
         placeholder="e.g. How many open tickets do we have this week? Show me all orders over €500 in the last 30 days."
         rows="3"
       ></textarea>
-      <button class="btn-run" id="runBtn" onclick="runQuery()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"/>
-        </svg>
-        Run
-      </button>
+      <div class="btn-col">
+        <button class="btn-clear" onclick="clearQuery()">Clear</button>
+        <button class="btn-run" id="runBtn" onclick="runQuery()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          Run
+        </button>
+      </div>
     </div>
 
-    <div class="examples">
-      <span class="examples-label">Try:</span>
-      <span class="chip" onclick="setQ('Show me all escalated tickets from this month')">Escalated tickets this month</span>
-      <span class="chip" onclick="setQ('Which customers have the most open orders?')">Top customers by orders</span>
-      <span class="chip" onclick="setQ('What is the average resolution time for support tickets?')">Avg resolution time</span>
-      <span class="chip" onclick="setQ('List all orders with status cancelled in the last 7 days')">Recent cancellations</span>
-      <span class="chip" onclick="setQ('How many tickets were created per day this week?')">Tickets per day</span>
+    <div class="query-tools">
+      <!-- History dropdown -->
+      <div class="dropdown" id="historyDropdown">
+        <button class="btn-dropdown" id="historyBtn" onclick="toggleDropdown('history')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          History
+          <span class="arrow">▾</span>
+        </button>
+        <div class="dropdown-menu" id="historyMenu">
+          <div class="dropdown-menu-header">Recent queries</div>
+          <div id="historyList"></div>
+        </div>
+      </div>
+
+      <!-- Favorites dropdown -->
+      <div class="dropdown" id="favoritesDropdown">
+        <button class="btn-dropdown" id="favoritesBtn" onclick="toggleDropdown('favorites')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Favorites
+          <span class="arrow">▾</span>
+        </button>
+        <div class="dropdown-menu" id="favoritesMenu">
+          <div class="dropdown-menu-header">Saved queries</div>
+          <div id="favoritesList"></div>
+        </div>
+      </div>
+
+      <!-- Save to favorites -->
+      <button class="btn-fav-save" onclick="addFavorite()" title="Save current query to favorites">★ Save to favorites</button>
     </div>
   </section>
 
@@ -580,7 +739,7 @@
 
   <!-- ── FOOTER ── -->
   <footer>
-    <span>Owner Analytics · NL2SQL Pipeline</span>
+    <span>JM20 Analytics · NL2SQL Pipeline</span>
     <span id="lastRun"></span>
   </footer>
 
@@ -604,9 +763,122 @@
     }
   });
 
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#historyDropdown')) closeDropdown('history');
+    if (!e.target.closest('#favoritesDropdown')) closeDropdown('favorites');
+  });
+
   function setQ(text) {
     input.value = text;
     input.focus();
+  }
+
+  function clearQuery() {
+    input.value = '';
+    input.focus();
+  }
+
+  // ── HISTORY ──────────────────────────────────────────────────────────────
+  const HISTORY_KEY   = 'jm20_query_history';
+  const FAVORITES_KEY = 'jm20_query_favorites';
+  const MAX_HISTORY   = 20;
+
+  function getHistory()   { try { return JSON.parse(localStorage.getItem(HISTORY_KEY)   || '[]'); } catch { return []; } }
+  function getFavorites() { try { return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]'); } catch { return []; } }
+
+  function saveHistory(arr)   { localStorage.setItem(HISTORY_KEY,   JSON.stringify(arr)); }
+  function saveFavorites(arr) { localStorage.setItem(FAVORITES_KEY, JSON.stringify(arr)); }
+
+  function addToHistory(q) {
+    const hist = getHistory().filter(x => x !== q);
+    hist.unshift(q);
+    saveHistory(hist.slice(0, MAX_HISTORY));
+  }
+
+  function addFavorite() {
+    const q = input.value.trim();
+    if (!q) return;
+    const favs = getFavorites().filter(x => x !== q);
+    favs.unshift(q);
+    saveFavorites(favs);
+    // Brief visual feedback
+    const btn = document.querySelector('.btn-fav-save');
+    btn.textContent = '★ Saved!';
+    setTimeout(() => { btn.textContent = '★ Save to favorites'; }, 1500);
+  }
+
+  function removeHistory(idx) {
+    const hist = getHistory();
+    hist.splice(idx, 1);
+    saveHistory(hist);
+    renderHistoryList();
+  }
+
+  function removeFavorite(idx) {
+    const favs = getFavorites();
+    favs.splice(idx, 1);
+    saveFavorites(favs);
+    renderFavoritesList();
+  }
+
+  function renderHistoryList() {
+    const list = document.getElementById('historyList');
+    const hist = getHistory();
+    if (hist.length === 0) {
+      list.innerHTML = '<div class="dropdown-empty">No history yet</div>';
+      return;
+    }
+    list.innerHTML = hist.map((q, i) => `
+      <div class="dropdown-item">
+        <span class="dropdown-item-text" onclick="pickItem('${escAttr(q)}')" title="${escHtml(q)}">${escHtml(q)}</span>
+        <span class="dropdown-item-del" onclick="removeHistory(${i})" title="Remove">✕</span>
+      </div>
+    `).join('');
+  }
+
+  function renderFavoritesList() {
+    const list = document.getElementById('favoritesList');
+    const favs = getFavorites();
+    if (favs.length === 0) {
+      list.innerHTML = '<div class="dropdown-empty">No favorites saved yet</div>';
+      return;
+    }
+    list.innerHTML = favs.map((q, i) => `
+      <div class="dropdown-item">
+        <span class="dropdown-item-text" onclick="pickItem('${escAttr(q)}')" title="${escHtml(q)}">${escHtml(q)}</span>
+        <span class="dropdown-item-del" onclick="removeFavorite(${i})" title="Remove">✕</span>
+      </div>
+    `).join('');
+  }
+
+  function pickItem(q) {
+    setQ(q);
+    closeDropdown('history');
+    closeDropdown('favorites');
+  }
+
+  function toggleDropdown(name) {
+    const menu = document.getElementById(name + 'Menu');
+    const btnEl = document.getElementById(name + 'Btn');
+    const isOpen = menu.classList.contains('open');
+    // Render fresh list each time
+    if (name === 'history') renderHistoryList();
+    if (name === 'favorites') renderFavoritesList();
+    // Close the other one
+    const other = name === 'history' ? 'favorites' : 'history';
+    closeDropdown(other);
+    menu.classList.toggle('open', !isOpen);
+    btnEl.classList.toggle('open', !isOpen);
+  }
+
+  function closeDropdown(name) {
+    document.getElementById(name + 'Menu')?.classList.remove('open');
+    document.getElementById(name + 'Btn')?.classList.remove('open');
+  }
+
+  function escAttr(str) {
+    return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
   }
 
   function setLoader(msg) {
@@ -616,6 +888,9 @@
   async function runQuery() {
     const question = input.value.trim();
     if (!question) return;
+
+    // Save to history
+    addToHistory(question);
 
     // Reset UI
     results.innerHTML = '';
