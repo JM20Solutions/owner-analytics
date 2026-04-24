@@ -1156,16 +1156,18 @@
     loader.classList.add('visible');
     setLoader('Generating SQL query...');
 
-    try {
-      setLoader('Running query against database...');
-      const res = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${currentJWT}`   // ← JWT sent here
-        },
-        body: JSON.stringify({ question })
-      });
+  try {
+  setLoader('Running query against database...');
+  const res = await fetch(WEBHOOK_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+      question,
+      token: currentJWT
+    })
+  });
 
       setLoader('Formatting results...');
       const data = await res.json();
