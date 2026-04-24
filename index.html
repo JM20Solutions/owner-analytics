@@ -1163,10 +1163,7 @@
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ 
-      question,
-      token: currentJWT
-    })
+    body: JSON.stringify({ question })
   });
 
       setLoader('Formatting results...');
